@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#calculator{
+    padding: 100px;
+    width: 500px;
+    height: 800px;
+}
+
+.numbers {
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+
+.operators{
+    margin: 0 auto;
+
+}
+
+button{
+    width: 150px;
+    height: 100px;
+}
+
+
