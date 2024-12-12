@@ -37,7 +37,7 @@ const clear = document.querySelector("#clear")
 
 
 const numbers = document.querySelectorAll(".numbers")
-
+const operators = document.querySelectorAll(".operators")
 
 
 numbers.forEach((number) => {
@@ -46,6 +46,15 @@ numbers.forEach((number) => {
         displayer(e.target.getAttribute("data-value"));
     })
 })
+
+operators.forEach((operator) => {
+    operator.addEventListener("click", (e) => {
+        displayer(e.target.innerText);
+        operators.forEach(operator => operator.disabled = true)
+    })
+})
+
+
 
 
 
