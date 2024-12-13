@@ -1,26 +1,3 @@
-/* 
-write a function inputGetter
-        get the first number
-            push the numbers inputed to an array of firstnumberarray.
-                if input  is from div class 'numbers', array.push(number). 
-
-        get the operator
-                else operator = the button to trigger the event.
-            disable the operator buttons once one has been pressed
-
-        get the second number 
-            push the numbers inputed to an array secondnumberarray. 
-
-link the = button to the operate function. When pressed feed as arguments into the operate function 
-
-write a function reseter (clr). wipes off the input. resets the values of the three variables
-
-write a function displayer. when a button is pressed, appendchild that value to the display div
-
-
-
-*/ 
-
 let firstNumber = 0;
 let firstArray = [];
 let secondNumber = 0;
@@ -32,11 +9,11 @@ let i = 0;
 const screen = document.querySelector('#screen')
 screen.innerText = 0;
 
-/*
-const add = document.querySelector("#add")
-const subtract = document.querySelector("#subtract")
-const multiply = document.querySelector("#multiply")
-const divide = document.querySelector("#divide") */
+
+let add = document.querySelector("#add")
+let subtract = document.querySelector("#subtract")
+let multiply = document.querySelector("#multiply")
+let divide = document.querySelector("#divide") 
 const equals = document.querySelector("#equals")
 const clear = document.querySelector("#clear")
 
@@ -45,23 +22,27 @@ const numbers = document.querySelectorAll(".numbers")
 const operators = document.querySelectorAll(".operators")
 
 
+function displayer(input){
+    if (screen.value === '0'){
+        screen.value = input;
+    } else screen.value += input;
+}
+
+
+
 numbers.forEach((number) => {
     number.addEventListener("click", (e) =>{
-        displayer(e.target.getAttribute("data-value"));
-        
-        if (i === 0){
+    displayer(e.target.getAttribute("data-value"));        
+    if (i === 0){
+            operatorEnabled();
             firstArray.push(parseInt(e.target.getAttribute("data-value")))
             firstNumber = firstArray.join('');
-            console.log(firstNumber);
             return firstNumber;
         
-        } else {secondArray.push(parseInt(e.target.getAttribute("data-value")))
-        secondNumber = secondArray.join('');
-        console.log('first number:' + firstNumber);
-        console.log('second number:' + secondNumber);
-        console.log('operator:' + operator);
-        }
-        
+    } else {secondArray.push(parseInt(e.target.getAttribute("data-value")))
+            secondNumber = secondArray.join('');
+            operatorDisabled();
+    }
     })
 })
 
@@ -71,11 +52,23 @@ operators.forEach((op) => {
         displayer(e.target.innerText);
         i++;
         operator = e.target.getAttribute("id");
-        console.log(operator);
+        operatorDisabled();
         return operator;
     })
 })
 
+function operatorDisabled(){
+        add.setAttribute("disabled", "true");
+        subtract.setAttribute("disabled", "true");
+        multiply.setAttribute("disabled", "true");
+        divide.setAttribute("disabled", "true");
+    }
+    function operatorEnabled(){
+        add.removeAttribute("disabled", );
+        subtract.removeAttribute("disabled", );
+        multiply.removeAttribute("disabled", );
+        divide.removeAttribute("disabled", );
+    }
 
 
 function adder (a, b){
@@ -110,20 +103,28 @@ function operate (a, b, operator){
 }
 
 equals.addEventListener('click', () => {
+    firstNumber = parseInt(firstNumber);
+    secondNumber = parseInt(secondNumber);
     let answer = operate(firstNumber, secondNumber, operator)
     console.log('The Answer:' + answer);
+    screen.value = answer;
     return answer;
 })
 
 
-function reseter(){}
-
-function displayer(input){
-    screen.value += input
+function reseter(){
+    screen.value = 0;
+    firstArray = [];
+    secondArray = [];
+    i = 0;
 }
 
+clear.addEventListener('click', () => {
+    return reseter();
+})
 
-
+screen.value = 0;
+operatorDisabled();
 
 /*const zero = document.querySelector("#zero")
 const one = document.querySelector("#one") 
