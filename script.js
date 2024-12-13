@@ -21,17 +21,22 @@ write a function displayer. when a button is pressed, appendchild that value to 
 
 */ 
 
-let firstNumber
-let secondNumber
-let operator
+let firstNumber = 0;
+let firstArray = [];
+let secondNumber = 0;
+let secondArray = [];
+let currentNumber
+let operator 
+let i = 0;
 
 const screen = document.querySelector('#screen')
 screen.innerText = 0;
 
+/*
 const add = document.querySelector("#add")
 const subtract = document.querySelector("#subtract")
 const multiply = document.querySelector("#multiply")
-const divide = document.querySelector("#divide")
+const divide = document.querySelector("#divide") */
 const equals = document.querySelector("#equals")
 const clear = document.querySelector("#clear")
 
@@ -42,19 +47,34 @@ const operators = document.querySelectorAll(".operators")
 
 numbers.forEach((number) => {
     number.addEventListener("click", (e) =>{
-        console.log(e.target.getAttribute("data-value"));
         displayer(e.target.getAttribute("data-value"));
+        
+        if (i === 0){
+            firstArray.push(parseInt(e.target.getAttribute("data-value")))
+            firstNumber = firstArray.join('');
+            console.log(firstNumber);
+            return firstNumber;
+        
+        } else {secondArray.push(parseInt(e.target.getAttribute("data-value")))
+        secondNumber = secondArray.join('');
+        console.log('first number:' + firstNumber);
+        console.log('second number:' + secondNumber);
+        console.log('operator:' + operator);
+        }
+        
     })
 })
 
-operators.forEach((operator) => {
-    operator.addEventListener("click", (e) => {
+
+operators.forEach((op) => {
+    op.addEventListener("click", (e) => {
         displayer(e.target.innerText);
-        operators.forEach(operator => operator.disabled = true)
+        i++;
+        operator = e.target.getAttribute("id");
+        console.log(operator);
+        return operator;
     })
 })
-
-
 
 
 
@@ -76,21 +96,25 @@ function divider (a, b){
     } return a / b;
 }
 
-function operate (firstNumber, secondNumber, operator){
+function operate (a, b, operator){
     switch (operator){
         case 'add':
-            return adder(firstNumber, secondNumber);
+            return adder(a, b);
         case 'subtract':
-            return subtracter(firstNumber, secondNumber);
+            return subtracter(a, b);
         case 'multiply':
-            return multiplyer(firstNumber, secondNumber);
+            return multiplyer(a, b);
         case 'divide':
-            return divider(firstNumber, secondNumber);
+            return divider(a, b);
     }
 }
 
+equals.addEventListener('click', () => {
+    let answer = operate(firstNumber, secondNumber, operator)
+    console.log('The Answer:' + answer);
+    return answer;
+})
 
-function inputGetter(){}
 
 function reseter(){}
 
